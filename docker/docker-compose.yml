@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  django:
+    container_name: mentorship-test-project
+    working_dir: /app/src
+    restart: unless-stopped
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    volumes:
+      - ..:/app
+      - ../src/db.sqlite3:/app/src/db.sqlite3
+    ports:
+      - "8000:8000"
+    command: sh -c "python /app/src/manage.py migrate && python /app/src/manage.py runserver 0.0.0.0:8000"
