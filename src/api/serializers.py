@@ -81,8 +81,6 @@ class UserUpdateSerializer(ModelSerializer):
         if mentees and isinstance(mentees, list):
             mentee_errors = []
             for mentee in mentees:
-                print(mentee)
-                print(User.objects.get_or_none(username=mentee))
                 if not User.objects.get_or_none(username=mentee):
                     mentee_errors.append({"mentee": f"Не существует пользователя с таким username - {mentee}"})
             if mentee_errors:
