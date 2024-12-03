@@ -28,6 +28,8 @@ class UserListSerializer(ModelSerializer):
 
     def to_representation(self, instance: User) -> dict:
         ret = super().to_representation(instance)
+        if instance.mentor:
+            ret["mentor"] = instance.mentor.username
         ret["mentees"] = [mentee.username for mentee in instance.mentees.all()]
         return ret
 
