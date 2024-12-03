@@ -26,6 +26,11 @@ class UserListSerializer(ModelSerializer):
             "mentees",
         ]
 
+    def to_representation(self, instance: User) -> dict:
+        ret = super().to_representation(instance)
+        ret["mentees"] = [mentee.username for mentee in instance.mentees.all()]
+        return ret
+
 
 class UserDetailSerializer(ModelSerializer):
     class Meta:
